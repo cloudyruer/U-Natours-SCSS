@@ -1,0 +1,72 @@
+/* 2-6 */
+.header {
+  height: 85vh;
+  background-image: linear-gradient(
+      to right bottom,
+      rgba($color-primary-light, 0.8),
+      rgba($color-primary-dark, 0.8)
+    ),
+    url(../img/hero-small.jpg);
+  /* gradients 漸變色
+      方向,顏色1, 顏色2
+      調整透明度-->0.8
+      因為先放得圖層會在上面 所以先放純色調透明後上背景圖片
+      */
+
+  background-size: cover;
+  /*cover: whatever the width of the viewport or the element, it will always try to fit the element inside of the box */
+
+  background-position: top;
+  /* whatever the viewport size is, the image always stays at the top of the container
+    最上面(top)定住, 有top, bottom, center
+   */
+
+  position: relative;
+
+  @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+    /* polygon-多邊形
+      四個角-順時針-從左上開始:左上->右上->右下->左下
+    */
+    height: 95vh;
+  }
+
+  // if resolution>192dpi + 螢幕寬度>600px 觸發(因為多數手機2x at least):
+  // , --> or的意思
+  @media only screen and (min-resolution: 192dpi) and (min-width: 37.5em),
+    only screen and (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.5em),
+    only screen and (min-width: 125em) {
+    background-image: linear-gradient(
+        to right bottom,
+        rgba($color-primary-light, 0.8),
+        rgba($color-primary-dark, 0.8)
+      ),
+      url(../img/hero.jpg);
+  }
+
+  @include respond(phone) {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0 100%);
+  }
+
+  &__logo-box {
+    /* 2-7 */
+    position: absolute;
+    top: 4rem;
+    left: 4rem;
+  }
+
+  &__logo {
+    height: 3.5rem;
+  }
+
+  &__textbox {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* 2-9: */
+    text-align: center;
+  }
+}
